@@ -8,7 +8,9 @@ import TaskItem from '@/components/TaskItem.vue'
 <template>
   <div class="task-list">
     <div class="task-list__control">
-      <InputComponent />
+      <InputComponent
+        placeholder="поиск"
+      />
       <ButtonComponent>
         добавить задачу
       </ButtonComponent>
