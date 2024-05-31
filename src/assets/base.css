@@ -1,15 +1,19 @@
 :root {
-  /* used */
   --vt-c-primary: #5451FF;
   --vt-c-red: #FF7474;
   --vt-c-black: #1B1B1B;
   --vt-c-white: #ffffff;
+  --vt-c-gray: #F1F1F1;
 }
 
 /* semantic color variables for this project */
-/* :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
+:root {
+  --color-primary: var(--vt-c-primary);
+  --color-red: var(--vt-c-red);
+  --color-black: var(--vt-c-black);
+  --color-white: var(--vt-c-white);
+  --color-gray: var(--vt-c-gray);
+  /* --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
   --color-border: var(--vt-c-divider-light-2);
@@ -18,8 +22,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
-} */
+  --section-gap: 160px; */
+}
 
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -45,8 +49,8 @@
 
 body {
   min-height: 100vh;
-  /* color: var(--color-text);
-  background: var(--color-background); */
+  color: var(--color-black);
+  /* background: var(--color-background); */
   transition:
     color 0.5s,
     background-color 0.5s;
