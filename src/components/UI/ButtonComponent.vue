@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  isCross: boolean
+}
+
+const props = defineProps<Props>()
+</script>
 
 <template>
-  <button @click.self="$emit('click', $event)" class="button">
-    <span class="button__text">
+  <button @click.self="$emit('click', $event)" class="button" :class="{ box: props.isCross }">
+    <img v-if="props.isCross" class="button__icon" src="/cross.svg" alt="" srcset="" />
+    <span v-else class="button__text">
       <slot></slot>
     </span>
   </button>
@@ -15,6 +22,14 @@
   border: 0;
   padding: 4px;
   border-radius: 2px;
+  &.box {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+  }
   &__text {
     text-transform: uppercase;
     font-size: 16px;
@@ -24,6 +39,10 @@
   }
   &:active {
     opacity: 0.8;
+  }
+  &__icon {
+    width: 15px;
+    height: 15px;
   }
 }
 </style>

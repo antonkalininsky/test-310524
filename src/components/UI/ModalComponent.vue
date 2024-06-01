@@ -15,7 +15,7 @@ defineExpose({ toggle })
   <div class="modal" v-if="isOpen">
     <div class="modal__inner">
       <div class="modal__control">
-        <ButtonComponent @click="isOpen = false"> X </ButtonComponent>
+        <ButtonComponent @click="isOpen = false" is-cross></ButtonComponent>
       </div>
       <div class="modal__view">
         <slot></slot>
