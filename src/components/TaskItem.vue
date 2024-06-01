@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import type { Task } from '@/types'
 import { useTaskStore } from '@/stores/tasks'
+import formatDate from '@/utils/formatDate'
 
 const taskStore = useTaskStore()
 
@@ -44,7 +45,7 @@ function handleStatusChange(e: any): void {
       <div class="task__title" :class="{ 'task__title--done': props.item.completed }">
         {{ props.item.title }}
       </div>
-      <div class="task__date">{{ props.item.dueDate }}</div>
+      <div class="task__date">{{ formatDate(props.item.dueDate) }}</div>
     </div>
     <ButtonComponent @click="deleteItem"> удалить </ButtonComponent>
     <ButtonComponent @click="$emit('edit', props.item.id)"> редактировать </ButtonComponent>
