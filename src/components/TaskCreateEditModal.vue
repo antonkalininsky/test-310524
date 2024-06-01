@@ -25,7 +25,8 @@ function openModal(id: number | undefined): void {
   if (typeof id === 'undefined') {
     form.value = { ...defaultTask }
   } else {
-    console.log('todo')
+    const item = taskStore.getItemById(id)!
+    form.value = { ...item }
   }
   modal.value.toggle()
 }

@@ -27,7 +27,7 @@ function deleteItem(): void {
       <div class="task__date">{{ props.item.dueDate }}</div>
     </div>
     <ButtonComponent @click="deleteItem"> удалить </ButtonComponent>
-    <ButtonComponent> редактировать </ButtonComponent>
+    <ButtonComponent @click="$emit('edit', props.item.id)"> редактировать </ButtonComponent>
   </div>
 </template>
 

@@ -12,6 +12,11 @@ const taskStore = useTaskStore()
 const taskItems = computed(() => taskStore.data)
 
 const modal = ref()
+
+function handleEditTrigger(id: number): void {
+  modal.value.openModal(id)
+  console.log('check', id)
+}
 </script>
 
 <template>
@@ -21,7 +26,7 @@ const modal = ref()
       <ButtonComponent @click="modal.openModal()"> добавить задачу </ButtonComponent>
     </div>
     <div class="task-list__items">
-      <TaskItem v-for="item in taskItems" :key="item.id" :item="item" />
+      <TaskItem v-for="item in taskItems" :key="item.id" :item="item" @edit="handleEditTrigger" />
     </div>
     <TaskCreateEditModal ref="modal" />
   </div>
