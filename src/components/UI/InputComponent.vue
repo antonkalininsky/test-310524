@@ -8,6 +8,10 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: ''
+  },
+  type: {
+    type: String,
+    default: 'text'
   }
 })
 </script>
@@ -17,7 +21,12 @@ const props = defineProps({
     <div v-if="props.label?.length" class="input__label">
       {{ props.label }}
     </div>
-    <input v-model="model" class="input__field" type="text" :placeholder="props.placeholder" />
+    <input
+      v-model="model"
+      class="input__field"
+      :type="props.type"
+      :placeholder="props.placeholder"
+    />
   </div>
 </template>
 <style scoped lang="scss">

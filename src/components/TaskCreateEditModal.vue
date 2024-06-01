@@ -50,7 +50,7 @@ defineExpose({ openModal })
       <div class="form__inputs">
         <InputComponent label="Название" v-model="form.title" />
         <InputComponent label="Описание" v-model="form.description" />
-        <InputComponent label="Срок выполнения" v-model="form.dueDate" />
+        <InputComponent label="Срок выполнения" v-model="form.dueDate" type="date" />
       </div>
       <ButtonComponent @click="submitForm"> Сохранить </ButtonComponent>
     </div>
