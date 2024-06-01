@@ -1,10 +1,10 @@
 :root {
-  --vt-c-primary: #5451FF;
-  --vt-c-red: #FF7474;
-  --vt-c-black: #1B1B1B;
+  --vt-c-primary: #5451ff;
+  --vt-c-red: #ff7474;
+  --vt-c-black: #1b1b1b;
   --vt-c-white: #ffffff;
-  --vt-c-gray: #F1F1F1;
-  --vt-c-hard-gray: #9B9B9B;
+  --vt-c-gray: #f1f1f1;
+  --vt-c-hard-gray: #9b9b9b;
 }
 
 /* semantic color variables for this project */
@@ -15,31 +15,7 @@
   --color-white: var(--vt-c-white);
   --color-gray: var(--vt-c-gray);
   --color-hard-gray: var(--vt-c-hard-gray);
-  /* --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
-
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
-
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px; */
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
-} */
 
 *,
 *::before,
@@ -52,7 +28,6 @@
 body {
   min-height: 100vh;
   color: var(--color-black);
-  /* background: var(--color-background); */
   transition:
     color 0.5s,
     background-color 0.5s;
