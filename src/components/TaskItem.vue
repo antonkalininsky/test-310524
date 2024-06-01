@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import type { Task } from '@/types'
+import { useTaskStore } from '@/stores/tasks'
+
+const taskStore = useTaskStore()
 
 interface Props {
   item: Task
 }
 
 const props = defineProps<Props>()
+
+function deleteItem(): void {
+  const result: boolean = confirm('Вы уверены что хотите удалить запись?')
+  if (result) {
+    taskStore.deleteItem(props.item.id)
+  }
+}
 </script>
 
 <template>
@@ -16,7 +26,7 @@ const props = defineProps<Props>()
       <div class="task__title">{{ props.item.title }}</div>
       <div class="task__date">{{ props.item.dueDate }}</div>
     </div>
-    <ButtonComponent> удалить </ButtonComponent>
+    <ButtonComponent @click="deleteItem"> удалить </ButtonComponent>
     <ButtonComponent> редактировать </ButtonComponent>
   </div>
 </template>

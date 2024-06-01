@@ -38,5 +38,10 @@ export const useTaskStore = defineStore('taskStore', () => {
     data.value.push({ ...item, id: Date.now() })
   }
 
-  return { data, addNewTask }
+  function deleteItem(id: number): void {
+    const index = data.value.findIndex((item) => item.id === id)
+    data.value.splice(index, 1)
+  }
+
+  return { data, addNewTask, deleteItem }
 })
