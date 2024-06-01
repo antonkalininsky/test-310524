@@ -1,28 +1,39 @@
 <script setup lang="ts">
 // npm
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 // local
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import InputComponent from '@/components/UI/InputComponent.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import TaskCreateEditModal from '@/components/TaskCreateEditModal.vue'
 import { useTaskStore } from './stores/tasks'
+import debounce from '@/utils/debounce'
 
 const taskStore = useTaskStore()
-const taskItems = computed(() => taskStore.data)
+
+const taskItems = computed(() => taskStore.dataGetter)
 
 const modal = ref()
+const searchWord = ref<string>('')
+
+const debouncedSearch = debounce(() => taskStore.setSearchWord(searchWord.value), 300)
+
+watch(
+  () => searchWord.value,
+  () => {
+    debouncedSearch()
+  }
+)
 
 function handleEditTrigger(id: number): void {
   modal.value.openModal(id)
-  console.log('check', id)
 }
 </script>
 
 <template>
   <div class="task-list">
     <div class="task-list__control">
-      <InputComponent placeholder="поиск" />
+      <InputComponent placeholder="поиск" v-model="searchWord" />
       <ButtonComponent @click="modal.openModal()"> добавить задачу </ButtonComponent>
     </div>
     <div class="task-list__items">

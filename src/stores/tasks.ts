@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Task } from '@/types'
 
@@ -34,6 +34,15 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   ])
 
+  const search = ref<string>('')
+
+  const dataGetter = computed(() => {
+    if (search.value) {
+      return data.value.filter((item) => item.title.includes(search.value))
+    }
+    return data.value
+  })
+
   function addOrUpdateTask(newItem: Task): void {
     const index = data.value.findIndex((item) => item.id === newItem.id)
     if (index === -1) {
@@ -60,5 +69,17 @@ export const useTaskStore = defineStore('taskStore', () => {
     item[key] = value
   }
 
-  return { data, addOrUpdateTask, deleteItem, getItemById, updateItemFieldById }
+  function setSearchWord(value: string): void {
+    console.log('triggered')
+    search.value = value
+  }
+
+  return {
+    dataGetter,
+    setSearchWord,
+    addOrUpdateTask,
+    deleteItem,
+    getItemById,
+    updateItemFieldById
+  }
 })
