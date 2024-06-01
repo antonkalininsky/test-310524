@@ -1,9 +1,10 @@
 <script setup lang="ts">
-interface Props {
-  isCross: boolean
-}
-
-const props = defineProps<Props>()
+const props = defineProps({
+  isCross: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>

@@ -2,7 +2,7 @@
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import { ref } from 'vue'
 
-const isOpen = ref<boolean>(true)
+const isOpen = ref<boolean>(false)
 
 function toggle(): void {
   isOpen.value = !isOpen.value

@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { Task } from '@/types'
 
 export const useTaskStore = defineStore('taskStore', () => {
   const data = ref([
@@ -33,7 +34,9 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   ])
 
-  function addNewTask(): void {}
+  function addNewTask(item: Task): void {
+    data.value.push({ ...item, id: Date.now() })
+  }
 
-  return { data }
+  return { data, addNewTask }
 })

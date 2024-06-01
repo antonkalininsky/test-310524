@@ -5,12 +5,40 @@ import { ref } from 'vue'
 import ModalComponent from '@/components/UI/ModalComponent.vue'
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import InputComponent from '@/components/UI/InputComponent.vue'
+import type { Task } from '@/types'
+import { useTaskStore } from '@/stores/tasks'
+
+const taskStore = useTaskStore()
+
+const defaultTask: Task = {
+  id: 0,
+  title: '',
+  description: '',
+  dueDate: '',
+  completed: false
+}
 
 const modal = ref()
-const form = ref({})
+const form = ref<Task>({ ...defaultTask })
 
 function openModal(id: number | undefined): void {
+  if (typeof id === 'undefined') {
+    form.value = { ...defaultTask }
+  } else {
+    console.log('todo')
+  }
   modal.value.toggle()
+}
+
+function submitForm(): void {
+  if (!validateForm()) return
+  taskStore.addNewTask(form.value)
+  modal.value.toggle()
+}
+
+function validateForm(): boolean {
+  console.log('todo')
+  return true
 }
 
 defineExpose({ openModal })
@@ -19,11 +47,11 @@ defineExpose({ openModal })
   <ModalComponent ref="modal">
     <div class="form">
       <div class="form__inputs">
-        <InputComponent label="Название" />
-        <InputComponent label="Название" />
-        <InputComponent label="Название" />
+        <InputComponent label="Название" v-model="form.title" />
+        <InputComponent label="Описание" v-model="form.description" />
+        <InputComponent label="Срок выполнения" v-model="form.dueDate" />
       </div>
-      <ButtonComponent> Сохранить </ButtonComponent>
+      <ButtonComponent @click="submitForm"> Сохранить </ButtonComponent>
     </div>
   </ModalComponent>
 </template>
