@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
-
-interface Task {
-  id: number
-  title: string
-  description: string
-  dueDate: string
-  completed: boolean
-}
+import type { Task } from '@/types'
 
 interface Props {
   item: Task

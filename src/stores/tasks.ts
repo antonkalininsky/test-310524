@@ -33,5 +33,7 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   ])
 
+  function addNewTask(): void {}
+
   return { data }
 })
