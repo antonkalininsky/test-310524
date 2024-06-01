@@ -2,8 +2,7 @@
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import { ref } from 'vue'
 
-// todo - typing
-const isOpen = ref(true)
+const isOpen = ref<boolean>(false)
 
 function toggle(): void {
   isOpen.value = !isOpen.value

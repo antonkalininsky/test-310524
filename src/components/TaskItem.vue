@@ -1,24 +1,30 @@
 <script setup lang="ts">
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
+
+interface Task {
+  id: number
+  title: string
+  description: string
+  dueDate: string
+  completed: boolean
+}
+
+interface Props {
+  item: Task
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div class="task">
-    <input class="task__check" type="checkbox" >
+    <input class="task__check" type="checkbox" />
     <div class="task__content">
-      <div class="task__title">
-        title
-      </div>
-      <div class="task__date">
-        date
-      </div>
+      <div class="task__title">{{ props.item.title }}</div>
+      <div class="task__date">{{ props.item.dueDate }}</div>
     </div>
-    <ButtonComponent>
-      удалить
-    </ButtonComponent>
-    <ButtonComponent>
-      редактировать
-    </ButtonComponent>
+    <ButtonComponent> удалить </ButtonComponent>
+    <ButtonComponent> редактировать </ButtonComponent>
   </div>
 </template>
 

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 // npm
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 // local
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import InputComponent from '@/components/UI/InputComponent.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import ModalComponent from '@/components/UI/ModalComponent.vue'
 import TaskCreateEditForm from '@/components/TaskCreateEditForm.vue'
+import { useTaskStore } from './stores/tasks'
+
+const taskStore = useTaskStore()
+const taskItems = computed(() => taskStore.data)
 
 const modal = ref()
 </script>
@@ -18,12 +22,7 @@ const modal = ref()
       <ButtonComponent> добавить задачу </ButtonComponent>
     </div>
     <div class="task-list__items">
-      <TaskItem />
-      <TaskItem />
-      <TaskItem />
-      <TaskItem />
-      <TaskItem />
-      <TaskItem />
+      <TaskItem v-for="item in taskItems" :key="item.id" :item="item" />
     </div>
     <ModalComponent ref="modal">
       <TaskCreateEditForm />
