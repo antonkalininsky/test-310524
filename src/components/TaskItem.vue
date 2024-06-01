@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// npm
+import { computed } from 'vue'
+// local
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import type { Task } from '@/types'
 import { useTaskStore } from '@/stores/tasks'
@@ -11,13 +14,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const isExpired = computed<boolean>(() => {
+  const dateNow: Date = new Date()
+  const dateDue: Date = new Date(props.item.dueDate)
+  return dateNow > dateDue
+})
+
 function deleteItem(): void {
   const result: boolean = confirm('Вы уверены что хотите удалить запись?')
   if (result) {
     taskStore.deleteItem(props.item.id)
   }
 }
-
 // todo - type event
 function handleStatusChange(e: any): void {
   taskStore.updateItemFieldById(props.item.id, 'completed', e.target.value === 'false')
@@ -25,7 +33,7 @@ function handleStatusChange(e: any): void {
 </script>
 
 <template>
-  <div class="task">
+  <div class="task" :class="{ 'task--warning': isExpired }">
     <input
       class="task__check"
       type="checkbox"

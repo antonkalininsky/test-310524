@@ -8,7 +8,7 @@ export const useTaskStore = defineStore('taskStore', () => {
       id: 1,
       title: 'First task 1',
       description: 'Description fo first task',
-      dueDate: '2024-06-01',
+      dueDate: '2024-06-03',
       completed: false
     },
     {
@@ -29,7 +29,7 @@ export const useTaskStore = defineStore('taskStore', () => {
       id: 4,
       title: 'First task 4',
       description: 'Description fo first task',
-      dueDate: '2024-06-01',
+      dueDate: '2024-06-05',
       completed: false
     }
   ])
