@@ -47,6 +47,7 @@ function handleEditTrigger(id: number): void {
 .task-list {
   display: grid;
   row-gap: 18px;
+  width: 576px;
   &__control {
     display: flex;
     justify-content: space-between;
