@@ -19,11 +19,11 @@ const defaultTask: Task = {
 }
 
 const modal = ref()
-const form = ref<Task>({ ...defaultTask })
+const form = ref<Task>({ ...defaultTask, id: Date.now() })
 
 function openModal(id: number | undefined): void {
   if (typeof id === 'undefined') {
-    form.value = { ...defaultTask }
+    form.value = { ...defaultTask, id: Date.now() }
   } else {
     const item = taskStore.getItemById(id)!
     form.value = { ...item }
@@ -33,7 +33,7 @@ function openModal(id: number | undefined): void {
 
 function submitForm(): void {
   if (!validateForm()) return
-  taskStore.addNewTask(form.value)
+  taskStore.addOrUpdateTask(form.value)
   modal.value.toggle()
 }
 

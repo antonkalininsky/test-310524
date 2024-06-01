@@ -34,8 +34,13 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   ])
 
-  function addNewTask(item: Task): void {
-    data.value.push({ ...item, id: Date.now() })
+  function addOrUpdateTask(newItem: Task): void {
+    const index = data.value.findIndex((item) => item.id === newItem.id)
+    if (index === -1) {
+      data.value.push(newItem)
+    } else {
+      data.value.splice(index, 1, newItem)
+    }
   }
 
   function deleteItem(id: number): void {
@@ -47,5 +52,5 @@ export const useTaskStore = defineStore('taskStore', () => {
     return data.value.find((item) => item.id === id)
   }
 
-  return { data, addNewTask, deleteItem, getItemById }
+  return { data, addOrUpdateTask, deleteItem, getItemById }
 })
