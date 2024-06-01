@@ -17,7 +17,7 @@ const props = defineProps({
     <div v-if="props.label?.length" class="input__label">
       {{ props.label }}
     </div>
-    <input v-model="model" class="input__field" type="text" :placeholder="props.placeholder">
+    <input v-model="model" class="input__field" type="text" :placeholder="props.placeholder" />
   </div>
 </template>
 <style scoped lang="scss">
@@ -33,6 +33,8 @@ const props = defineProps({
     padding: 4px 6px;
     border-radius: 4px;
     border: 1px solid var(--color-hard-gray);
+    font-size: 16px;
+    line-height: 21.86px;
   }
 }
 </style>
