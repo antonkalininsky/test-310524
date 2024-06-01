@@ -17,13 +17,25 @@ function deleteItem(): void {
     taskStore.deleteItem(props.item.id)
   }
 }
+
+// todo - type event
+function handleStatusChange(e: any): void {
+  taskStore.updateItemFieldById(props.item.id, 'completed', e.target.value === 'false')
+}
 </script>
 
 <template>
   <div class="task">
-    <input class="task__check" type="checkbox" />
+    <input
+      class="task__check"
+      type="checkbox"
+      :value="props.item.completed"
+      @change="handleStatusChange"
+    />
     <div class="task__content">
-      <div class="task__title">{{ props.item.title }}</div>
+      <div class="task__title" :class="{ 'task__title--done': props.item.completed }">
+        {{ props.item.title }}
+      </div>
       <div class="task__date">{{ props.item.dueDate }}</div>
     </div>
     <ButtonComponent @click="deleteItem"> удалить </ButtonComponent>

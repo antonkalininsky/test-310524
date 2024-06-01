@@ -48,9 +48,17 @@ export const useTaskStore = defineStore('taskStore', () => {
     data.value.splice(index, 1)
   }
 
-  function getItemById(id: number) {
-    return data.value.find((item) => item.id === id)
+  function getItemById(id: number): Task {
+    return data.value.find((item) => item.id === id)!
   }
 
-  return { data, addOrUpdateTask, deleteItem, getItemById }
+  function updateItemFieldById(id: number, key: any, value: any): void {
+    updateItemField(getItemById(id), key, value)
+  }
+
+  function updateItemField<T, K extends keyof T>(item: T, key: K, value: T[K]): void {
+    item[key] = value
+  }
+
+  return { data, addOrUpdateTask, deleteItem, getItemById, updateItemFieldById }
 })
