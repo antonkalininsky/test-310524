@@ -11,12 +11,7 @@ export const useTaskStore = defineStore('taskStore', () => {
   const isError = ref<boolean>(false)
   const loading = ref<boolean>(false)
 
-  const dataGetter = computed(() => {
-    if (search.value) {
-      return data.value.filter((item) => item.title.includes(search.value))
-    }
-    return data.value
-  })
+  const dataGetter = computed(() => data.value)
 
   const isErrorGetter = computed(() => isError.value)
   const loadingGetter = computed(() => loading.value)
@@ -24,7 +19,11 @@ export const useTaskStore = defineStore('taskStore', () => {
   async function getData() {
     loading.value = true
     isError.value = false
-    const result = await getTasks()
+    const params = {}
+    if (search.value !== '') {
+      params.title = search.value
+    }
+    const result = await getTasks(params)
     if (result.error) {
       isError.value = true
     } else {
@@ -38,11 +37,9 @@ export const useTaskStore = defineStore('taskStore', () => {
   async function addOrUpdateTask(newItem: Task) {
     const result = await getTaskById(newItem.id)
     if (result.error) {
-      const result = await createTask({ ...newItem, id: String(newItem.id) })
-      console.log(result)
+      await createTask({ ...newItem, id: String(newItem.id) })
     } else {
-      const result = await updateTask(newItem.id, newItem)
-      console.log(result)
+      await updateTask(newItem.id, newItem)
     }
   }
 

@@ -17,7 +17,10 @@ const taskItems = computed(() => taskStore.dataGetter)
 const modal = ref()
 const searchWord = ref<string>('')
 
-const debouncedSearch = debounce(() => taskStore.setSearchWord(searchWord.value), 300)
+const debouncedSearch = debounce(async () => {
+  taskStore.setSearchWord(searchWord.value)
+  await taskStore.getData()
+}, 300)
 
 watch(
   () => searchWord.value,
