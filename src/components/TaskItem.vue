@@ -32,7 +32,7 @@ async function deleteItem() {
 async function handleStatusChange(e: any) {
   await taskStore.updateItemById(props.item.id, {
     ...props.item,
-    completed: e.target.value === 'false'
+    completed: e.target.checked
   })
   await taskStore.getData()
 }
@@ -43,7 +43,7 @@ async function handleStatusChange(e: any) {
     <input
       class="task__check"
       type="checkbox"
-      :value="props.item.completed"
+      :checked="props.item.completed"
       @change="handleStatusChange"
     />
     <div class="task__content">
