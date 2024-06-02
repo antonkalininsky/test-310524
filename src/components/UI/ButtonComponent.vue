@@ -5,10 +5,17 @@ const props = defineProps({
     default: false
   }
 })
+
+const emits = defineEmits(['click'])
+
+function handleClick(e: any) {
+  e.stopPropagation()
+  emits('click', e)
+}
 </script>
 
 <template>
-  <button @click.self="$emit('click', $event)" class="button" :class="{ box: props.isCross }">
+  <button @click="handleClick" class="button" :class="{ box: props.isCross }">
     <img v-if="props.isCross" class="button__icon" src="/cross.svg" alt="" srcset="" />
     <span v-else class="button__text">
       <slot></slot>
