@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// setups
 const props = defineProps({
   isCross: {
     type: Boolean,
@@ -8,6 +9,7 @@ const props = defineProps({
 
 const emits = defineEmits(['click'])
 
+// methods
 function handleClick(e: any) {
   e.stopPropagation()
   emits('click', e)

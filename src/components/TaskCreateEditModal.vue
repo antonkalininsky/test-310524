@@ -8,8 +8,10 @@ import InputComponent from '@/components/UI/InputComponent.vue'
 import type { Task } from '@/types'
 import { useTaskStore } from '@/stores/tasks'
 
+// stores
 const taskStore = useTaskStore()
 
+// setups
 const defaultTask: Task = {
   id: 0,
   title: '',
@@ -18,6 +20,9 @@ const defaultTask: Task = {
   completed: false
 }
 
+defineExpose({ openModal })
+
+// refs
 const modal = ref()
 const form = ref<Task>({ ...defaultTask })
 const isValid = ref({
@@ -25,6 +30,7 @@ const isValid = ref({
   date: true
 })
 
+// methods
 async function openModal(id: number | undefined) {
   if (typeof id === 'undefined') {
     form.value = { ...defaultTask, id: Date.now() }
@@ -53,8 +59,6 @@ function validateForm(): boolean {
   }
   return isValid.value.title && isValid.value.date
 }
-
-defineExpose({ openModal })
 </script>
 <template>
   <ModalComponent ref="modal">

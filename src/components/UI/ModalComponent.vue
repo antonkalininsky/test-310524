@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import ButtonComponent from '@/components/UI/ButtonComponent.vue'
+// npm
 import { ref } from 'vue'
+// local
+import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 
+// refs
 const isOpen = ref<boolean>(false)
 
+// setups
+defineExpose({ toggle })
+
+// methods
 function toggle(): void {
   isOpen.value = !isOpen.value
 }
-
-defineExpose({ toggle })
 </script>
 
 <template>

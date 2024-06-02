@@ -4,18 +4,23 @@ import type { Task } from '@/types'
 import { getTaskById, getTasks, createTask, updateTask, deleteTaskById } from '@/api/tasksApi'
 
 export const useTaskStore = defineStore('taskStore', () => {
+  // refs
   const data = ref<Task[]>([])
-
   const search = ref<string>('')
-
   const isError = ref<boolean>(false)
   const loading = ref<boolean>(false)
 
+  // getters
   const dataGetter = computed(() => data.value)
-
   const isErrorGetter = computed(() => isError.value)
   const loadingGetter = computed(() => loading.value)
 
+  // setters
+  function setSearchWord(value: string): void {
+    search.value = value
+  }
+
+  // methods
   async function getData() {
     loading.value = true
     isError.value = false
@@ -59,18 +64,6 @@ export const useTaskStore = defineStore('taskStore', () => {
     await updateTask(id, value)
   }
 
-  function updateItemFieldById(id: number, key: any, value: any): void {
-    updateItemField(getItemById(id), key, value)
-  }
-
-  function updateItemField<T, K extends keyof T>(item: T, key: K, value: T[K]): void {
-    item[key] = value
-  }
-
-  function setSearchWord(value: string): void {
-    search.value = value
-  }
-
   return {
     isErrorGetter,
     loadingGetter,
@@ -80,7 +73,6 @@ export const useTaskStore = defineStore('taskStore', () => {
     addOrUpdateTask,
     deleteItem,
     getItemById,
-    updateItemFieldById,
     updateItemById
   }
 })

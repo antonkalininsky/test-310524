@@ -10,18 +10,23 @@ import { useTaskStore } from './stores/tasks'
 import debounce from '@/utils/debounce'
 import LoaderComponent from '@/components/UI/LoaderComponent.vue'
 
+// stores
 const taskStore = useTaskStore()
 
+// computed
 const taskItems = computed(() => taskStore.dataGetter)
 
+// refs
 const modal = ref()
 const searchWord = ref<string>('')
 
+// setups
 const debouncedSearch = debounce(async () => {
   taskStore.setSearchWord(searchWord.value)
   await taskStore.getData()
 }, 300)
 
+// watchers
 watch(
   () => searchWord.value,
   () => {
@@ -29,10 +34,12 @@ watch(
   }
 )
 
+// hooks
 onMounted(async () => {
   await taskStore.getData()
 })
 
+// methods
 function handleEditTrigger(id: number): void {
   modal.value.openModal(id)
 }

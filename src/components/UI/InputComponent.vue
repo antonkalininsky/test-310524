@@ -1,5 +1,7 @@
 <script setup lang="ts">
+// setups
 const model = defineModel()
+
 const props = defineProps({
   label: {
     type: String,

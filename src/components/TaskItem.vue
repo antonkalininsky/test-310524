@@ -7,20 +7,25 @@ import type { Task } from '@/types'
 import { useTaskStore } from '@/stores/tasks'
 import formatDate from '@/utils/formatDate'
 
+// stores
 const taskStore = useTaskStore()
 
+// types
 interface Props {
   item: Task
 }
 
+// props
 const props = defineProps<Props>()
 
+// computed
 const isExpired = computed<boolean>(() => {
   const dateNow: Date = new Date()
   const dateDue: Date = new Date(props.item.dueDate)
   return dateNow > dateDue
 })
 
+// methods
 async function deleteItem() {
   const result: boolean = confirm('Вы уверены что хотите удалить запись?')
   if (result) {

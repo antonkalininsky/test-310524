@@ -3,7 +3,6 @@
   <div class="loader"></div>
 </template>
 <style scoped>
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
   padding: 8px;
