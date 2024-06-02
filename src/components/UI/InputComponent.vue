@@ -12,18 +12,27 @@ const props = defineProps({
   type: {
     type: String,
     default: 'text'
+  },
+  isError: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 
 <template>
   <div class="input">
-    <div v-if="props.label?.length" class="input__label">
+    <div
+      v-if="props.label?.length"
+      class="input__label"
+      :class="{ 'input__label--error': props.isError }"
+    >
       {{ props.label }}
     </div>
     <input
       v-model="model"
       class="input__field"
+      :class="{ 'input__field--error': props.isError }"
       :type="props.type"
       :placeholder="props.placeholder"
     />
@@ -37,6 +46,9 @@ const props = defineProps({
     text-transform: uppercase;
     font-size: 10px;
     opacity: 0.5;
+    &--error {
+      color: red;
+    }
   }
   &__field {
     padding: 4px 6px;
@@ -44,6 +56,9 @@ const props = defineProps({
     border: 1px solid var(--color-hard-gray);
     font-size: 16px;
     line-height: 21.86px;
+    &--error {
+      border: 1px solid red;
+    }
   }
 }
 </style>

@@ -19,7 +19,11 @@ const defaultTask: Task = {
 }
 
 const modal = ref()
-const form = ref<Task>({ ...defaultTask, id: Date.now() })
+const form = ref<Task>({ ...defaultTask })
+const isValid = ref({
+  title: true,
+  date: true
+})
 
 function openModal(id: number | undefined): void {
   if (typeof id === 'undefined') {
@@ -38,8 +42,15 @@ function submitForm(): void {
 }
 
 function validateForm(): boolean {
-  console.log('todo')
-  return true
+  isValid.value.title = true
+  isValid.value.date = true
+  if (form.value.title === '') {
+    isValid.value.title = false
+  }
+  if (form.value.dueDate === '') {
+    isValid.value.date = false
+  }
+  return isValid.value.title && isValid.value.date
 }
 
 defineExpose({ openModal })
@@ -48,9 +59,14 @@ defineExpose({ openModal })
   <ModalComponent ref="modal">
     <div class="form">
       <div class="form__inputs">
-        <InputComponent label="Название" v-model="form.title" />
+        <InputComponent label="Название" v-model="form.title" :is-error="!isValid.title" />
         <InputComponent label="Описание" v-model="form.description" />
-        <InputComponent label="Срок выполнения" v-model="form.dueDate" type="date" />
+        <InputComponent
+          label="Срок выполнения"
+          v-model="form.dueDate"
+          type="date"
+          :is-error="!isValid.date"
+        />
       </div>
       <ButtonComponent @click="submitForm"> Сохранить </ButtonComponent>
     </div>
