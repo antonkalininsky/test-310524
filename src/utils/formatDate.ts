@@ -1,4 +1,6 @@
 export default function formatDate(inputDate: string): string {
+  if (!inputDate) return ''
+
   const parts = inputDate.split('-')
 
   if (parts.length !== 3) {

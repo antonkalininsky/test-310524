@@ -1,40 +1,15 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Task } from '@/types'
+import { getTaskById, getTasks, createTask, updateTask, deleteTaskById } from '@/api/tasksApi'
 
 export const useTaskStore = defineStore('taskStore', () => {
-  const data = ref([
-    {
-      id: 1,
-      title: 'First task 1',
-      description: 'Description fo first task',
-      dueDate: '2024-06-03',
-      completed: false
-    },
-    {
-      id: 2,
-      title: 'First task 2',
-      description: 'Description fo first task',
-      dueDate: '2024-06-01',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'First task 3',
-      description: 'Description fo first task',
-      dueDate: '2024-06-01',
-      completed: false
-    },
-    {
-      id: 4,
-      title: 'First task 4',
-      description: 'Description fo first task',
-      dueDate: '2024-06-05',
-      completed: false
-    }
-  ])
+  const data = ref<Task[]>([])
 
   const search = ref<string>('')
+
+  const isError = ref<boolean>(false)
+  const loading = ref<boolean>(false)
 
   const dataGetter = computed(() => {
     if (search.value) {
@@ -43,22 +18,48 @@ export const useTaskStore = defineStore('taskStore', () => {
     return data.value
   })
 
-  function addOrUpdateTask(newItem: Task): void {
-    const index = data.value.findIndex((item) => item.id === newItem.id)
-    if (index === -1) {
-      data.value.push(newItem)
+  const isErrorGetter = computed(() => isError.value)
+  const loadingGetter = computed(() => loading.value)
+
+  async function getData() {
+    loading.value = true
+    isError.value = false
+    const result = await getTasks()
+    if (result.error) {
+      isError.value = true
     } else {
-      data.value.splice(index, 1, newItem)
+      data.value = result.res.data.map((item) => {
+        return { ...item, id: Number(item.id) }
+      })
+    }
+    loading.value = false
+  }
+
+  async function addOrUpdateTask(newItem: Task) {
+    const result = await getTaskById(newItem.id)
+    if (result.error) {
+      const result = await createTask({ ...newItem, id: String(newItem.id) })
+      console.log(result)
+    } else {
+      const result = await updateTask(newItem.id, newItem)
+      console.log(result)
     }
   }
 
-  function deleteItem(id: number): void {
-    const index = data.value.findIndex((item) => item.id === id)
-    data.value.splice(index, 1)
+  async function deleteItem(id: number) {
+    await deleteTaskById(id)
   }
 
-  function getItemById(id: number): Task {
-    return data.value.find((item) => item.id === id)!
+  async function getItemById(id: number) {
+    const result = await getTaskById(id)
+    if (!result.error) {
+      return result.res.data
+    }
+    return null
+  }
+
+  async function updateItemById(id: number, value: Task) {
+    await updateTask(id, value)
   }
 
   function updateItemFieldById(id: number, key: any, value: any): void {
@@ -70,16 +71,19 @@ export const useTaskStore = defineStore('taskStore', () => {
   }
 
   function setSearchWord(value: string): void {
-    console.log('triggered')
     search.value = value
   }
 
   return {
+    isErrorGetter,
+    loadingGetter,
     dataGetter,
+    getData,
     setSearchWord,
     addOrUpdateTask,
     deleteItem,
     getItemById,
-    updateItemFieldById
+    updateItemFieldById,
+    updateItemById
   }
 })

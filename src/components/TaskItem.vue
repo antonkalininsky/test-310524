@@ -21,15 +21,20 @@ const isExpired = computed<boolean>(() => {
   return dateNow > dateDue
 })
 
-function deleteItem(): void {
+async function deleteItem() {
   const result: boolean = confirm('Вы уверены что хотите удалить запись?')
   if (result) {
-    taskStore.deleteItem(props.item.id)
+    await taskStore.deleteItem(props.item.id)
+    await taskStore.getData()
   }
 }
-// todo - type event
-function handleStatusChange(e: any): void {
-  taskStore.updateItemFieldById(props.item.id, 'completed', e.target.value === 'false')
+
+async function handleStatusChange(e: any) {
+  await taskStore.updateItemById(props.item.id, {
+    ...props.item,
+    completed: e.target.value === 'false'
+  })
+  await taskStore.getData()
 }
 </script>
 

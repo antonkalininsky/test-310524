@@ -7,7 +7,6 @@
   --vt-c-hard-gray: #9b9b9b;
 }
 
-/* semantic color variables for this project */
 :root {
   --color-primary: var(--vt-c-primary);
   --color-red: var(--vt-c-red);

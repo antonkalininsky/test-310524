@@ -25,19 +25,20 @@ const isValid = ref({
   date: true
 })
 
-function openModal(id: number | undefined): void {
+async function openModal(id: number | undefined) {
   if (typeof id === 'undefined') {
     form.value = { ...defaultTask, id: Date.now() }
   } else {
-    const item = taskStore.getItemById(id)!
+    const item = await taskStore.getItemById(id)!
     form.value = { ...item }
   }
   modal.value.toggle()
 }
 
-function submitForm(): void {
+async function submitForm() {
   if (!validateForm()) return
-  taskStore.addOrUpdateTask(form.value)
+  await taskStore.addOrUpdateTask(form.value)
+  await taskStore.getData()
   modal.value.toggle()
 }
 

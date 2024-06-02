@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // npm
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 // local
 import ButtonComponent from '@/components/UI/ButtonComponent.vue'
 import InputComponent from '@/components/UI/InputComponent.vue'
@@ -8,6 +8,7 @@ import TaskItem from '@/components/TaskItem.vue'
 import TaskCreateEditModal from '@/components/TaskCreateEditModal.vue'
 import { useTaskStore } from './stores/tasks'
 import debounce from '@/utils/debounce'
+import LoaderComponent from '@/components/UI/LoaderComponent.vue'
 
 const taskStore = useTaskStore()
 
@@ -25,6 +26,10 @@ watch(
   }
 )
 
+onMounted(async () => {
+  await taskStore.getData()
+})
+
 function handleEditTrigger(id: number): void {
   modal.value.openModal(id)
 }
@@ -39,7 +44,11 @@ function handleEditTrigger(id: number): void {
     <div class="task-list__items" v-if="taskItems.length">
       <TaskItem v-for="item in taskItems" :key="item.id" :item="item" @edit="handleEditTrigger" />
     </div>
-    <div class="task-list__messages" v-else>Задачи не найдены</div>
+    <div class="task-list__messages" v-else>
+      <LoaderComponent v-if="taskStore.loadingGetter" />
+      <span v-else-if="taskStore.isErrorGetter">Ошибка загрузки данных</span>
+      <span v-else>Задачи не найдены</span>
+    </div>
     <TaskCreateEditModal ref="modal" />
   </div>
 </template>
