@@ -36,9 +36,10 @@ function handleEditTrigger(id: number): void {
       <InputComponent placeholder="поиск" v-model="searchWord" />
       <ButtonComponent @click="modal.openModal()"> добавить задачу </ButtonComponent>
     </div>
-    <div class="task-list__items">
+    <div class="task-list__items" v-if="taskItems.length">
       <TaskItem v-for="item in taskItems" :key="item.id" :item="item" @edit="handleEditTrigger" />
     </div>
+    <div class="task-list__messages" v-else>Задачи не найдены</div>
     <TaskCreateEditModal ref="modal" />
   </div>
 </template>
@@ -47,7 +48,7 @@ function handleEditTrigger(id: number): void {
 .task-list {
   display: grid;
   row-gap: 18px;
-  width: 576px;
+  width: 583px;
   &__control {
     display: flex;
     justify-content: space-between;
@@ -56,6 +57,9 @@ function handleEditTrigger(id: number): void {
   &__items {
     display: grid;
     row-gap: 4px;
+  }
+  &__messages {
+    text-align: center;
   }
 }
 </style>
